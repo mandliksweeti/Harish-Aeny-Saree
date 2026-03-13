@@ -1,0 +1,760 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Aeny Sarees</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #9c27b0;
+            --secondary-color: #e91e63;
+            --accent-color: #ffd700;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f8f8f8;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://picsum.photos/seed/contact-hero/1600/800.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+
+        /* Contact Info Section */
+        .contact-info {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-card i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card p,
+        .contact-card a {
+            color: var(--text-dark);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: var(--primary-color);
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128c7e;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 0 0 80px 0;
+            background: white;
+        }
+
+        .map-container {
+            position: relative;
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            max-width: 300px;
+        }
+
+        .map-overlay h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .map-overlay p {
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.1), rgba(233, 30, 99, 0.1));
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Business Hours */
+        .hours-section {
+            padding: 60px 0;
+            background: white;
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hours-card {
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.1), rgba(233, 30, 99, 0.1));
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .hours-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .hours-card p {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-light);
+            transition: background 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .map-overlay {
+                position: static;
+                margin-bottom: 1rem;
+                max-width: 100%;
+            }
+
+            .map-container {
+                height: 300px;
+            }
+        }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 10000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-star"></i>
+                Aeny Sarees
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Get in Touch</h1>
+            <p>We'd love to hear from you. Reach out to us for any inquiries or assistance.</p>
+        </div>
+    </section>
+
+    <section class="contact-info">
+        <div class="container">
+            <h2 class="section-title">Contact Information</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Phone Numbers</h3>
+                    <a href="tel:+919876543210">+91 98765 43210</a>
+                    <a href="tel:+919876543211">+91 98765 43211</a>
+                    <p>Mon-Sat: 9AM-8PM</p>
+                </div>
+
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Address</h3>
+                    <a href="mailto:info@aenysarees.com">info@aenysarees.com</a>
+                    <a href="mailto:support@aenysarees.com">support@aenysarees.com</a>
+                    <a href="mailto:orders@aenysarees.com">orders@aenysarees.com</a>
+                </div>
+
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Our Address</h3>
+                    <p>123 Textile Lane, Mumbai</p>
+                    <p>Maharashtra, India - 400001</p>
+                    <a href="#" onclick="openMap()">Get Directions →</a>
+                </div>
+
+                <div class="contact-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <p>For quick queries</p>
+                    <a href="https://wa.me/919876543210" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> Chat Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="container">
+            <h2 class="section-title">Find Us on Map</h2>
+            <div class="map-container">
+                <div class="map-overlay">
+                    <h4><i class="fas fa-store"></i> Aeny Sarees</h4>
+                    <p>123 Textile Lane, Mumbai</p>
+                    <p>Maharashtra, India - 400001</p>
+                    <p>📍 19.0760° N, 72.8777° E</p>
+                </div>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.336859453393!2d72.8749!3d19.0760!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMTNL%20Building!5e0!3m2!1sen!2sin!4v1234567890"
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-form-section">
+        <div class="container">
+            <h2 class="section-title">Send Us a Message</h2>
+            <div class="form-container">
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject">
+                                <option value="general">General Inquiry</option>
+                                <option value="order">Order Status</option>
+                                <option value="product">Product Information</option>
+                                <option value="bulk">Bulk Order</option>
+                                <option value="complaint">Complaint</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required
+                            placeholder="Tell us how we can help you..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="hours-section">
+        <div class="container">
+            <h2 class="section-title">Business Hours</h2>
+            <div class="hours-grid">
+                <div class="hours-card">
+                    <h4>Monday - Friday</h4>
+                    <p>9:00 AM - 8:00 PM</p>
+                </div>
+                <div class="hours-card">
+                    <h4>Saturday</h4>
+                    <p>9:00 AM - 8:00 PM</p>
+                </div>
+                <div class="hours-card">
+                    <h4>Sunday</h4>
+                    <p>10:00 AM - 6:00 PM</p>
+                </div>
+                <div class="hours-card">
+                    <h4>Holidays</h4>
+                    <p>10:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About Aeny Sarees</h3>
+                    <p>Leading manufacturer of premium quality sarees since 1985, combining traditional craftsmanship
+                        with contemporary designs.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Textile Lane, Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@aenysarees.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Aeny Sarees. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Form submission handler
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+
+            // Show success message
+            showToast('Thank you for your message! We\'ll get back to you within 24 hours.');
+
+            // Reset form
+            event.target.reset();
+
+            // Log form data (in real app, send to server)
+            console.log('Form submitted:', data);
+        }
+
+        // Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
+
+        // Open map in new tab
+        function openMap() {
+            window.open('https://maps.google.com/?q=123+Textile+Lane+Mumbai', '_blank');
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Phone number formatting
+        document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+            link.addEventListener('click', function () {
+                showToast('Calling ' + this.textContent + '...');
+            });
+        });
+
+        // Email link handling
+        document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+            link.addEventListener('click', function () {
+                showToast('Opening email client...');
+            });
+        });
+
+        // WhatsApp link handling
+        document.querySelectorAll('a[href^="https://wa.me/"]').forEach(link => {
+            link.addEventListener('click', function (e) {
+                if (this.classList.contains('whatsapp-btn')) {
+                    showToast('Opening WhatsApp...');
+                    setTimeout(() => {
+                        window.open(this.href, '_blank');
+                    }, 500);
+                }
+            });
+        });
+
+        // Add hover effect to contact cards
+        document.querySelectorAll('.contact-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Initialize page animations
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.contact-card, .hours-card').forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.animation = 'fadeInUp 0.6s forwards';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Aeny Sarees</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #9c27b0;
+            --secondary-color: #e91e63;
+            --accent-color: #ffd700;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f8f8f8;
+            --error-color: #f44336;
+            --success-color: #4caf50;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            padding: 40px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-group label .required {
+            color: var(--error-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+        }
+
+        .form-control.error {
+            border-color: var(--error-color);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Radio and Checkbox Groups */
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option,
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .radio-option input,
+        .checkbox-option input {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        /* Rating Stars */
+        .rating-group {
+            display: flex;
+            gap: 10px;
+            font-size: 2rem;
+        }
+
+        .star {
+            cursor: pointer;
+            color: #ddd;
+            transition: color 0.3s;
+        }
+
+        .star:hover,
+        .star.active {
+            color: var(--accent-color);
+        }
+
+        /* Error Messages */
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.875rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(156, 39, 176, 0.3);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Success Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.3s;
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            color: var(--success-color);
+            margin-bottom: 20px;
+        }
+
+        .modal h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .modal-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 25px;
+            }
+
+            .form-header h1 {
+                font-size: 2rem;
+            }
+
+            .radio-group,
+            .checkbox-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-star"></i>
+                Aeny Sarees
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="form-header">
+                <h1>We Value Your Feedback</h1>
+                <p>Help us serve you better by sharing your experience with Aeny Sarees</p>
+            </div>
+
+            <div class="form-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+
+                <form id="feedbackForm">
+                    <!-- Personal Information -->
+                    <div class="form-group">
+                        <label for="fullName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="fullName" class="form-control" placeholder="Enter your full name">
+                        <div class="error-message">Please enter your full name</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email address">
+                        <div class="error-message">Please enter a valid email address</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number">
+                        <div class="error-message">Please enter a valid phone number</div>
+                    </div>
+
+                    <!-- Purchase Information -->
+                    <div class="form-group">
+                        <label>Have you purchased from Aeny Sarees before? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="purchased" value="yes" required>
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="purchased" value="no" required>
+                                <span>No</span>
+                            </label>
+                        </div>
+                        <div class="error-message">Please select an option</div>
+                    </div>
+
+                    <div class="form-group" id="purchaseDetails" style="display: none;">
+                        <label for="purchaseDate">When did you make your purchase?</label>
+                        <input type="date" id="purchaseDate" class="form-control">
+                    </div>
+
+                    <!-- Rating -->
+                    <div class="form-group">
+                        <label>Overall Experience Rating <span class="required">*</span></label>
+                        <div class="rating-group">
+                            <i class="fas fa-star star" data-rating="1"></i>
+                            <i class="fas fa-star star" data-rating="2"></i>
+                            <i class="fas fa-star star" data-rating="3"></i>
+                            <i class="fas fa-star star" data-rating="4"></i>
+                            <i class="fas fa-star star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="rating" value="0">
+                        <div class="error-message">Please provide a rating</div>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="form-group">
+                        <label>Which aspects would you like to rate? (Select all that apply)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="aspects" value="quality">
+                                <span>Product Quality</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="aspects" value="design">
+                                <span>Design & Variety</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="aspects" value="price">
+                                <span>Price & Value</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="aspects" value="service">
+                                <span>Customer Service</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="aspects" value="delivery">
+                                <span>Delivery Experience</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Feedback -->
+                    <div class="form-group">
+                        <label for="feedback">Your Feedback <span class="required">*</span></label>
+                        <textarea id="feedback" class="form-control"
+                            placeholder="Please share your detailed feedback, suggestions, or complaints..."></textarea>
+                        <div class="error-message">Please provide your feedback (minimum 10 characters)</div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="form-group">
+                        <label>Would you recommend Aeny Sarees to others? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="recommend" value="definitely" required>
+                                <span>Definitely</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="recommend" value="probably" required>
+                                <span>Probably</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="recommend" value="not-sure" required>
+                                <span>Not Sure</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="recommend" value="probably-not" required>
+                                <span>Probably Not</span>
+                            </label>
+                        </div>
+                        <div class="error-message">Please select an option</div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-submit">Submit Feedback</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Thank You!</h2>
+            <p>Your feedback has been successfully submitted. We appreciate your time and valuable input.</p>
+            <button class="modal-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Form elements
+        const form = document.getElementById('feedbackForm');
+        const progressBar = document.getElementById('progressBar');
+        const successModal = document.getElementById('successModal');
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('rating');
+        const purchasedRadios = document.querySelectorAll('input[name="purchased"]');
+        const purchaseDetails = document.getElementById('purchaseDetails');
+
+        // Star rating functionality
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const rating = parseInt(this.dataset.rating);
+                ratingInput.value = rating;
+                updateStars(rating);
+                updateProgress();
+            });
+
+            star.addEventListener('mouseenter', function () {
+                const rating = parseInt(this.dataset.rating);
+                updateStars(rating);
+            });
+        });
+
+        document.querySelector('.rating-group').addEventListener('mouseleave', function () {
+            updateStars(parseInt(ratingInput.value));
+        });
+
+        function updateStars(rating) {
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Show/hide purchase details
+        purchasedRadios.forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (this.value === 'yes') {
+                    purchaseDetails.style.display = 'block';
+                } else {
+                    purchaseDetails.style.display = 'none';
+                }
+                updateProgress();
+            });
+        });
+
+        // Update progress bar
+        function updateProgress() {
+            const totalFields = 8; // Total required fields
+            let filledFields = 0;
+
+            // Check each field
+            if (document.getElementById('fullName').value) filledFields++;
+            if (document.getElementById('email').value) filledFields++;
+            if (document.getElementById('phone').value) filledFields++;
+            if (document.querySelector('input[name="purchased"]:checked')) filledFields++;
+            if (ratingInput.value > 0) filledFields++;
+            if (document.getElementById('feedback').value.length >= 10) filledFields++;
+            if (document.querySelector('input[name="recommend"]:checked')) filledFields++;
+
+            const progress = (filledFields / totalFields) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        // Add input event listeners for progress
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('input', updateProgress);
+        });
+
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
+
+        // Form validation
+        function validateForm() {
+            let isValid = true;
+            const errorMessages = document.querySelectorAll('.error-message');
+
+            // Reset error messages
+            errorMessages.forEach(msg => msg.classList.remove('show'));
+
+            // Validate full name
+            const fullName = document.getElementById('fullName');
+            if (!fullName.value.trim()) {
+                showError(fullName);
+                isValid = false;
+            }
+
+            // Validate email
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                showError(email);
+                isValid = false;
+            }
+
+            // Validate phone
+            const phone = document.getElementById('phone');
+            const phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone.value.replace(/\D/g, ''))) {
+                showError(phone);
+                isValid = false;
+            }
+
+            // Validate purchase radio
+            const purchased = document.querySelector('input[name="purchased"]:checked');
+            if (!purchased) {
+                errorMessages[2].classList.add('show');
+                isValid = false;
+            }
+
+            // Validate rating
+            if (ratingInput.value === '0') {
+                errorMessages[3].classList.add('show');
+                isValid = false;
+            }
+
+            // Validate feedback
+            const feedback = document.getElementById('feedback');
+            if (feedback.value.trim().length < 10) {
+                showError(feedback);
+                isValid = false;
+            }
+
+            // Validate recommend
+            const recommend = document.querySelector('input[name="recommend"]:checked');
+            if (!recommend) {
+                errorMessages[4].classList.add('show');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showError(input) {
+            input.classList.add('error');
+            const errorMsg = input.parentElement.querySelector('.error-message');
+            if (errorMsg) {
+                errorMsg.classList.add('show');
+            }
+        }
+
+        // Form submission
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (validateForm()) {
+                // Disable submit button
+                const submitBtn = form.querySelector('.btn-submit');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+
+                // Simulate form submission
+                setTimeout(() => {
+                    // Show success modal
+                    successModal.classList.add('show');
+
+                    // Reset form
+                    form.reset();
+                    ratingInput.value = '0';
+                    updateStars(0);
+                    progressBar.style.width = '0%';
+                    purchaseDetails.style.display = 'none';
+
+                    // Re-enable submit button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Feedback';
+
+                    // Remove error classes
+                    document.querySelectorAll('.form-control').forEach(input => {
+                        input.classList.remove('error');
+                    });
+                }, 1500);
+            }
+        });
+
+        // Close modal
+        function closeModal() {
+            successModal.classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        successModal.addEventListener('click', function (e) {
+            if (e.target === successModal) {
+                closeModal();
+            }
+        });
+
+        // Initialize progress on load
+        updateProgress();
+    </script>
+</body>
+
+</html>
